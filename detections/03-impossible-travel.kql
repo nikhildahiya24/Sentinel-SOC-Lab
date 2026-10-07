@@ -1,0 +1,15 @@
+// SOCLab - Impossible travel
+// MITRE: T1078 | same user signs in successfully from two countries within 60 min
+SOCLabAuth_CL
+| where TimeGenerated > ago(2h)
+| where EventType == "SignIn" and Result == "Success"
+| project TimeGenerated, UserPrincipalName, SourceIP, Country, City
+| sort by UserPrincipalName asc, TimeGenerated asc
+| extend PrevUser = prev(UserPrincipalName), PrevTime = prev(TimeGenerated),
+         PrevCountry = prev(Country), PrevCity = prev(City), PrevIP = prev(SourceIP)
+| where UserPrincipalName == PrevUser
+| where Country != PrevCountry
+| extend MinutesBetween = datetime_diff('minute', TimeGenerated, PrevTime)
+| where MinutesBetween < 60
+| project TimeGenerated, UserPrincipalName, SourceIP, Country, City,
+          PrevIP, PrevCountry, PrevCity, PrevTime, MinutesBetween
