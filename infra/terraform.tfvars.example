@@ -1,0 +1,5 @@
+subscription_id = "00000000-0000-0000-0000-000000000000"
+location        = "eastus"
+my_public_ip    = "203.0.113.10/32"   # curl ifconfig.me, then append /32
+admin_password  = "ChangeMe-Use-A-Strong-Pass-123!"
+deploy_vm       = true
