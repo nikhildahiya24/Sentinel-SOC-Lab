@@ -1,0 +1,9 @@
+// SOCLab - Multiple failed Windows logons (EventID 4625)
+// MITRE: T1110
+SecurityEvent
+| where TimeGenerated > ago(30m)
+| where EventID == 4625
+| summarize FailedCount = count(), FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated),
+            LogonTypes = make_set(LogonType)
+    by Computer, TargetAccount, IpAddress
+| where FailedCount >= 5
