@@ -1,0 +1,11 @@
+// SOCLab - Privileged role assigned outside business hours (UTC 08:00-18:00, Mon-Fri)
+// MITRE: T1098.003
+let privilegedRoles = dynamic(["Global Administrator", "Privileged Role Administrator",
+                               "Security Administrator", "User Administrator"]);
+SOCLabAuth_CL
+| where TimeGenerated > ago(1h)
+| where EventType == "RoleAssignment" and Result == "Success"
+| where TargetRole in (privilegedRoles)
+| extend Hour = hourofday(TimeGenerated), Day = dayofweek(TimeGenerated) / 1d
+| where Hour !between (8 .. 17) or Day in (0, 6)   // 0 = Sunday, 6 = Saturday
+| project TimeGenerated, UserPrincipalName, TargetRole, InitiatedBy, SourceIP, Country
