@@ -1,0 +1,7 @@
+// SOCLab - User added to local Administrators (EventID 4732, BUILTIN\Administrators = S-1-5-32-544)
+// MITRE: T1098 / T1136.001
+SecurityEvent
+| where TimeGenerated > ago(30m)
+| where EventID == 4732
+| where TargetSid == "S-1-5-32-544"
+| project TimeGenerated, Computer, SubjectAccount, MemberName, MemberSid, TargetAccount
