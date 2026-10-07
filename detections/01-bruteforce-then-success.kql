@@ -1,0 +1,18 @@
+// SOCLab - Brute force followed by successful sign-in
+// MITRE: T1110.001 | >= 10 failures for one user from one IP, then a success within 30 min
+let lookback = 1h;
+let threshold = 10;
+let failures = SOCLabAuth_CL
+    | where TimeGenerated > ago(lookback)
+    | where EventType == "SignIn" and Result == "Failure"
+    | summarize FailedCount = count(), FirstFailure = min(TimeGenerated), LastFailure = max(TimeGenerated)
+        by UserPrincipalName, SourceIP, Country
+    | where FailedCount >= threshold;
+let successes = SOCLabAuth_CL
+    | where TimeGenerated > ago(lookback)
+    | where EventType == "SignIn" and Result == "Success"
+    | project SuccessTime = TimeGenerated, UserPrincipalName, SourceIP, Application;
+failures
+| join kind=inner successes on UserPrincipalName, SourceIP
+| where SuccessTime between (LastFailure .. (LastFailure + 30m))
+| summarize SuccessTime = min(SuccessTime) by UserPrincipalName, SourceIP, Country, FailedCount, FirstFailure, LastFailure, Application
