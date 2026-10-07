@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.5}
+      .t{font-size:15px;font-weight:600;fill:#0f172a}
+      .s{font-size:12.5px;fill:#475569}
+      .l{stroke:#475569;stroke-width:1.8;fill:none;marker-end:url(#a)}
+      .lbl{font-size:11.5px;fill:#64748b}
+    </style>
+  </defs>
+
+  <rect width="1200" height="660" fill="#f8fafc"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#0f172a">Sentinel SOC Lab: Architecture</text>
+  <text x="40" y="68" class="s">Data sources → ingestion → Log Analytics → Microsoft Sentinel detections → automated response</text>
+
+  <!-- Azure RG boundary -->
+  <rect x="270" y="95" width="900" height="535" rx="14" fill="#eff6ff" stroke="#93c5fd" stroke-dasharray="6 5" stroke-width="1.5"/>
+  <text x="290" y="120" font-size="13" font-weight="600" fill="#1d4ed8">Azure resource group (rg-soclab), deployed with Terraform</text>
+
+  <!-- Sources -->
+  <rect x="30" y="150" width="210" height="96" rx="10" class="box"/>
+  <text x="48" y="178" class="t">Log generator</text>
+  <text x="48" y="200" class="s">generate_logs.py</text>
+  <text x="48" y="220" class="s">Synthetic sign-in &amp;</text>
+  <text x="48" y="237" class="s">role-assignment events</text>
+
+  <rect x="30" y="400" width="210" height="96" rx="10" class="box"/>
+  <text x="48" y="428" class="t">Analyst (RDP)</text>
+  <text x="48" y="450" class="s">Wrong-password logons,</text>
+  <text x="48" y="467" class="s">local admin added</text>
+  <text x="48" y="484" class="s">NSG: your IP only</text>
+
+  <!-- Ingestion -->
+  <rect x="300" y="150" width="190" height="96" rx="10" class="box"/>
+  <text x="318" y="178" class="t">DCE + DCR</text>
+  <text x="318" y="200" class="s">Logs Ingestion API</text>
+  <text x="318" y="220" class="s">Stream:</text>
+  <text x="318" y="237" class="s">Custom-SOCLabAuth_CL</text>
+
+  <rect x="300" y="400" width="190" height="96" rx="10" class="box"/>
+  <text x="318" y="428" class="t">lab-vm01</text>
+  <text x="318" y="450" class="s">Windows Server 2022</text>
+  <text x="318" y="467" class="s">Azure Monitor Agent</text>
+  <text x="318" y="484" class="s">Security events via DCR</text>
+
+  <!-- Workspace -->
+  <rect x="540" y="230" width="230" height="190" rx="10" class="box"/>
+  <text x="558" y="258" class="t">Log Analytics workspace</text>
+  <text x="558" y="280" class="s">law-soclab</text>
+  <rect x="558" y="294" width="194" height="32" rx="6" fill="#f1f5f9"/>
+  <text x="570" y="315" font-size="12.5" fill="#0f172a">SOCLabAuth_CL</text>
+  <rect x="558" y="332" width="194" height="32" rx="6" fill="#f1f5f9"/>
+  <text x="570" y="353" font-size="12.5" fill="#0f172a">SecurityEvent</text>
+  <rect x="558" y="370" width="194" height="32" rx="6" fill="#f1f5f9"/>
+  <text x="570" y="391" font-size="12.5" fill="#0f172a">AzureActivity</text>
+
+  <!-- Sentinel -->
+  <rect x="820" y="150" width="320" height="350" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="840" y="180" class="t" fill="#1d4ed8">Microsoft Sentinel</text>
+  <rect x="840" y="198" width="280" height="56" rx="8" fill="#eff6ff"/>
+  <text x="856" y="222" font-size="13.5" font-weight="600" fill="#0f172a">Analytics rules (6)</text>
+  <text x="856" y="242" class="s">KQL · MITRE ATT&amp;CK · entity mapping</text>
+  <rect x="840" y="266" width="280" height="56" rx="8" fill="#eff6ff"/>
+  <text x="856" y="290" font-size="13.5" font-weight="600" fill="#0f172a">Incidents</text>
+  <text x="856" y="310" class="s">Grouped by entity, 5h lookback</text>
+  <rect x="840" y="334" width="280" height="56" rx="8" fill="#eff6ff"/>
+  <text x="856" y="358" font-size="13.5" font-weight="600" fill="#0f172a">Automation rule</text>
+  <text x="856" y="378" class="s">On incident created → run playbook</text>
+  <rect x="840" y="402" width="280" height="56" rx="8" fill="#eff6ff"/>
+  <text x="856" y="426" font-size="13.5" font-weight="600" fill="#0f172a">Workbook &amp; hunting</text>
+  <text x="856" y="446" class="s">Dashboards · pivot queries</text>
+
+  <!-- Response -->
+  <rect x="540" y="520" width="230" height="90" rx="10" class="box"/>
+  <text x="558" y="548" class="t">Logic App playbook</text>
+  <text x="558" y="570" class="s">Managed identity</text>
+  <text x="558" y="588" class="s">Sentinel Responder role</text>
+
+  <rect x="300" y="520" width="190" height="90" rx="10" class="box"/>
+  <text x="318" y="548" class="t">SOC analyst</text>
+  <text x="318" y="570" class="s">Teams alert card</text>
+  <text x="318" y="588" class="s">NIST 800-61 runbook</text>
+
+  <!-- Arrows -->
+  <path class="l" d="M240,198 L298,198"/>
+  <path class="l" d="M240,448 L298,448"/>
+  <path class="l" d="M490,198 L515,198 L515,300 L538,300"/>
+  <text x="497" y="190" class="lbl">HTTPS</text>
+  <path class="l" d="M490,448 L515,448 L515,350 L538,350"/>
+  <path class="l" d="M770,325 L818,325"/>
+  <text x="776" y="316" class="lbl">KQL</text>
+  <path class="l" d="M980,500 L980,565 L772,565"/>
+  <text x="900" y="558" class="lbl">trigger</text>
+  <path class="l" d="M540,575 L492,575"/>
+  <text x="500" y="566" class="lbl">Teams</text>
+  <path class="l" d="M655,520 C 700,500 790,470 838,440" stroke-dasharray="5 4"/>
+  <text x="752" y="520" class="lbl">comment</text>
+</svg>
