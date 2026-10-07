@@ -12,25 +12,9 @@ in this lab sends malicious traffic anywhere.
 
 ## 1. Architecture
 
-```
-                 ┌───────────────────────────── Azure Resource Group ───────────────────────────────┐
-                 │                                                                                 │
- generator/      │   Data Collection        Data Collection        Log Analytics Workspace          │
- generate_logs.py├──►Endpoint (DCE) ───────►Rule (DCR) ──────────►  ├─ SOCLabAuth_CL (custom table) │
- (synthetic      │                                                 ├─ SecurityEvent                │
-  sign-in logs)  │                                                 └─ AzureActivity                │
-                 │   Windows VM ── Azure Monitor Agent ── DCR ────────────────▲                    │
-                 │   (lab-vm01)    (Security events 4624/4625/4688/4720/4732)  │                    │
-                 │                                                             │                    │
-                 │                          Microsoft Sentinel ◄───────────────┘                    │
-                 │                          ├─ Analytics rules (detections/*.kql)                   │
-                 │                          ├─ Incidents                                            │
-                 │                          ├─ Automation rule ──► Logic App playbook               │
-                 │                          │                       ├─ Post alert to Teams          │
-                 │                          │                       └─ Comment on the incident      │
-                 │                          └─ Workbook / hunting queries                           │
-                 └─────────────────────────────────────────────────────────────────────────────────┘
-```
+![Architecture](images/architecture.svg)
+
+![Incident lifecycle](images/incident-response-flow.svg)
 
 ## 2. Project layout
 
@@ -49,6 +33,7 @@ sentinel-soc-lab/
 │   ├── generate_logs.py
 │   └── requirements.txt
 ├── playbooks/notify-and-comment.json   ← Logic App (ARM template)
+├── images/                        ← architecture & coverage diagrams
 └── docs/
     ├── incident-response-runbook.md
     ├── incident-report-template.md
@@ -142,6 +127,8 @@ cd infra && terraform destroy
 ```
 
 ## 5. Detections included
+
+![Detection coverage](images/detection-coverage.svg)
 
 | # | Rule | Data source | MITRE ATT&CK |
 |---|---|---|---|
