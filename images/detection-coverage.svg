@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <style>
+    .h{font-size:12.5px;font-weight:700;fill:#475569;letter-spacing:.4px}
+    .c{font-size:14px;fill:#0f172a}
+    .m{font-size:13px;fill:#334155;font-family:SFMono-Regular, Menlo, Consolas, monospace}
+    .p{font-size:12px;font-weight:700}
+  </style>
+  <rect width="1200" height="470" fill="#f8fafc"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#0f172a">Detection coverage: MITRE ATT&amp;CK</text>
+  <text x="40" y="68" font-size="13" fill="#475569">6 scheduled analytics rules across 4 tactics and 2 data sources</text>
+
+  <rect x="30" y="90" width="1140" height="350" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="54" y="122" class="h">#</text>
+  <text x="90" y="122" class="h">DETECTION</text>
+  <text x="520" y="122" class="h">TACTIC</text>
+  <text x="730" y="122" class="h">TECHNIQUE</text>
+  <text x="880" y="122" class="h">DATA SOURCE</text>
+  <text x="1060" y="122" class="h">SEVERITY</text>
+  <line x1="30" y1="138" x2="1170" y2="138" stroke="#e2e8f0"/>
+
+  <!-- rows: y = 170 + 50*i -->
+  <g>
+    <text x="54" y="172" class="c">1</text>
+    <text x="90" y="172" class="c">Brute force followed by successful sign-in</text>
+    <text x="520" y="172" class="c">Credential Access</text>
+    <text x="730" y="172" class="m">T1110.001</text>
+    <text x="880" y="172" class="m">SOCLabAuth_CL</text>
+    <rect x="1060" y="156" width="64" height="24" rx="12" fill="#fee2e2"/><text x="1092" y="172.5" text-anchor="middle" class="p" fill="#b91c1c">High</text>
+    <line x1="30" y1="188" x2="1170" y2="188" stroke="#f1f5f9"/>
+  </g>
+  <g>
+    <text x="54" y="222" class="c">2</text>
+    <text x="90" y="222" class="c">Password spray from a single IP</text>
+    <text x="520" y="222" class="c">Credential Access</text>
+    <text x="730" y="222" class="m">T1110.003</text>
+    <text x="880" y="222" class="m">SOCLabAuth_CL</text>
+    <rect x="1052" y="206" width="80" height="24" rx="12" fill="#fef3c7"/><text x="1092" y="222.5" text-anchor="middle" class="p" fill="#b45309">Medium</text>
+    <line x1="30" y1="238" x2="1170" y2="238" stroke="#f1f5f9"/>
+  </g>
+  <g>
+    <text x="54" y="272" class="c">3</text>
+    <text x="90" y="272" class="c">Impossible travel</text>
+    <text x="520" y="272" class="c">Initial Access</text>
+    <text x="730" y="272" class="m">T1078</text>
+    <text x="880" y="272" class="m">SOCLabAuth_CL</text>
+    <rect x="1052" y="256" width="80" height="24" rx="12" fill="#fef3c7"/><text x="1092" y="272.5" text-anchor="middle" class="p" fill="#b45309">Medium</text>
+    <line x1="30" y1="288" x2="1170" y2="288" stroke="#f1f5f9"/>
+  </g>
+  <g>
+    <text x="54" y="322" class="c">4</text>
+    <text x="90" y="322" class="c">Privileged role assigned outside business hours</text>
+    <text x="520" y="322" class="c">Persistence · Priv. Esc.</text>
+    <text x="730" y="322" class="m">T1098.003</text>
+    <text x="880" y="322" class="m">SOCLabAuth_CL</text>
+    <rect x="1060" y="306" width="64" height="24" rx="12" fill="#fee2e2"/><text x="1092" y="322.5" text-anchor="middle" class="p" fill="#b91c1c">High</text>
+    <line x1="30" y1="338" x2="1170" y2="338" stroke="#f1f5f9"/>
+  </g>
+  <g>
+    <text x="54" y="372" class="c">5</text>
+    <text x="90" y="372" class="c">Multiple failed Windows logons (4625)</text>
+    <text x="520" y="372" class="c">Credential Access</text>
+    <text x="730" y="372" class="m">T1110</text>
+    <text x="880" y="372" class="m">SecurityEvent</text>
+    <rect x="1052" y="356" width="80" height="24" rx="12" fill="#fef3c7"/><text x="1092" y="372.5" text-anchor="middle" class="p" fill="#b45309">Medium</text>
+    <line x1="30" y1="388" x2="1170" y2="388" stroke="#f1f5f9"/>
+  </g>
+  <g>
+    <text x="54" y="422" class="c">6</text>
+    <text x="90" y="422" class="c">User added to local Administrators (4732)</text>
+    <text x="520" y="422" class="c">Persistence</text>
+    <text x="730" y="422" class="m">T1098</text>
+    <text x="880" y="422" class="m">SecurityEvent</text>
+    <rect x="1060" y="406" width="64" height="24" rx="12" fill="#fee2e2"/><text x="1092" y="422.5" text-anchor="middle" class="p" fill="#b91c1c">High</text>
+  </g>
+</svg>
