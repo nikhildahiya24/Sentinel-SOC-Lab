@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t{font-size:15px;font-weight:700;fill:#0f172a}
+      .s{font-size:12.5px;fill:#334155}
+      .n{font-size:12px;font-weight:700;fill:#ffffff}
+      .l{stroke:#475569;stroke-width:1.8;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect width="1200" height="380" fill="#f8fafc"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#0f172a">Incident lifecycle (NIST SP 800-61)</text>
+  <text x="40" y="68" font-size="13" fill="#475569">Every lab incident follows the same path, from raw event to closed report</text>
+
+  <!-- 6 stages -->
+  <g>
+    <rect x="30" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="30" y="100" width="170" height="8" rx="4" fill="#64748b"/>
+    <circle cx="56" cy="138" r="14" fill="#64748b"/><text x="56" y="142.5" text-anchor="middle" class="n">1</text>
+    <text x="78" y="143" class="t">Generate</text>
+    <text x="46" y="180" class="s">Synthetic logs or</text>
+    <text x="46" y="198" class="s">VM activity enter</text>
+    <text x="46" y="216" class="s">the workspace</text>
+    <text x="46" y="262" font-size="11.5" fill="#64748b">generate_logs.py</text>
+    <text x="46" y="280" font-size="11.5" fill="#64748b">Azure Monitor Agent</text>
+  </g>
+  <g>
+    <rect x="225" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="225" y="100" width="170" height="8" rx="4" fill="#2563eb"/>
+    <circle cx="251" cy="138" r="14" fill="#2563eb"/><text x="251" y="142.5" text-anchor="middle" class="n">2</text>
+    <text x="273" y="143" class="t">Detect</text>
+    <text x="241" y="180" class="s">Scheduled KQL rule</text>
+    <text x="241" y="198" class="s">matches and creates</text>
+    <text x="241" y="216" class="s">an incident</text>
+    <text x="241" y="262" font-size="11.5" fill="#64748b">detections/*.kql</text>
+    <text x="241" y="280" font-size="11.5" fill="#64748b">every 10–30 min</text>
+  </g>
+  <g>
+    <rect x="420" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="420" y="100" width="170" height="8" rx="4" fill="#7c3aed"/>
+    <circle cx="446" cy="138" r="14" fill="#7c3aed"/><text x="446" y="142.5" text-anchor="middle" class="n">3</text>
+    <text x="468" y="143" class="t">Automate</text>
+    <text x="436" y="180" class="s">Playbook alerts the</text>
+    <text x="436" y="198" class="s">SOC in Teams and</text>
+    <text x="436" y="216" class="s">comments on incident</text>
+    <text x="436" y="262" font-size="11.5" fill="#64748b">Logic App (SOAR)</text>
+    <text x="436" y="280" font-size="11.5" fill="#64748b">seconds after creation</text>
+  </g>
+  <g>
+    <rect x="615" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="615" y="100" width="170" height="8" rx="4" fill="#d97706"/>
+    <circle cx="641" cy="138" r="14" fill="#d97706"/><text x="641" y="142.5" text-anchor="middle" class="n">4</text>
+    <text x="663" y="143" class="t">Investigate</text>
+    <text x="631" y="180" class="s">Scope entities, build</text>
+    <text x="631" y="198" class="s">timeline, classify</text>
+    <text x="631" y="216" class="s">TP / BP / FP</text>
+    <text x="631" y="262" font-size="11.5" fill="#64748b">Investigation graph</text>
+    <text x="631" y="280" font-size="11.5" fill="#64748b">hunting queries</text>
+  </g>
+  <g>
+    <rect x="810" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="810" y="100" width="170" height="8" rx="4" fill="#dc2626"/>
+    <circle cx="836" cy="138" r="14" fill="#dc2626"/><text x="836" y="142.5" text-anchor="middle" class="n">5</text>
+    <text x="858" y="143" class="t">Respond</text>
+    <text x="826" y="180" class="s">Contain, eradicate,</text>
+    <text x="826" y="198" class="s">recover per the</text>
+    <text x="826" y="216" class="s">detection's runbook</text>
+    <text x="826" y="262" font-size="11.5" fill="#64748b">Block IP, revoke</text>
+    <text x="826" y="280" font-size="11.5" fill="#64748b">sessions, remove admin</text>
+  </g>
+  <g>
+    <rect x="1005" y="100" width="170" height="210" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect x="1005" y="100" width="170" height="8" rx="4" fill="#059669"/>
+    <circle cx="1031" cy="138" r="14" fill="#059669"/><text x="1031" y="142.5" text-anchor="middle" class="n">6</text>
+    <text x="1053" y="143" class="t">Report</text>
+    <text x="1021" y="180" class="s">Close incident, write</text>
+    <text x="1021" y="198" class="s">report, tune the rule</text>
+    <text x="1021" y="216" class="s">(lessons learned)</text>
+    <text x="1021" y="262" font-size="11.5" fill="#64748b">incident-report-</text>
+    <text x="1021" y="280" font-size="11.5" fill="#64748b">template.md</text>
+  </g>
+
+  <path class="l" d="M200,205 L223,205"/>
+  <path class="l" d="M395,205 L418,205"/>
+  <path class="l" d="M590,205 L613,205"/>
+  <path class="l" d="M785,205 L808,205"/>
+  <path class="l" d="M980,205 L1003,205"/>
+  <path d="M1090,310 L1090,345 L315,345 L315,312" stroke="#94a3b8" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="640" y="338" text-anchor="middle" font-size="12" fill="#64748b">Tuning feedback: adjust thresholds &amp; exclusions</text>
+</svg>
