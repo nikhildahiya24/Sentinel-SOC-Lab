@@ -1,0 +1,66 @@
+// ===================== HUNTING =====================
+
+// H1. Sign-in failure reasons over the last 24h
+SOCLabAuth_CL
+| where TimeGenerated > ago(24h) and EventType == "SignIn" and Result == "Failure"
+| summarize count() by FailureReason
+| sort by count_ desc
+
+// H2. Users with first-ever sign-in from a new country (7d baseline vs last 1d)
+let baseline = SOCLabAuth_CL
+    | where TimeGenerated between (ago(7d) .. ago(1d)) and Result == "Success"
+    | distinct UserPrincipalName, Country;
+SOCLabAuth_CL
+| where TimeGenerated > ago(1d) and Result == "Success"
+| join kind=leftanti baseline on UserPrincipalName, Country
+| summarize FirstSeen = min(TimeGenerated) by UserPrincipalName, Country, SourceIP
+
+// H3. Everything a suspicious IP did (pivot - replace the IP)
+let suspectIP = "203.0.113.50";
+SOCLabAuth_CL
+| where SourceIP == suspectIP
+| sort by TimeGenerated asc
+
+// H4. New processes on the lab VM after a successful logon (EventID 4688)
+SecurityEvent
+| where TimeGenerated > ago(24h) and EventID == 4688
+| summarize Count = count() by Computer, Account, NewProcessName
+| sort by Count asc
+
+// H5. Azure control-plane changes (requires Azure Activity connector)
+AzureActivity
+| where TimeGenerated > ago(24h)
+| where OperationNameValue has_any ("write", "delete") and ActivityStatusValue == "Success"
+| summarize count() by Caller, OperationNameValue, ResourceGroup
+
+// ===================== DASHBOARD (Workbook tiles) =====================
+
+// D1. Sign-ins over time by result (time chart)
+SOCLabAuth_CL
+| where EventType == "SignIn"
+| summarize count() by Result, bin(TimeGenerated, 15m)
+| render timechart
+
+// D2. Top 10 source IPs by failed sign-ins (bar chart)
+SOCLabAuth_CL
+| where Result == "Failure"
+| summarize Failures = count() by SourceIP, Country
+| top 10 by Failures
+| render barchart
+
+// D3. Sign-ins by country (map tile: set Location = Country)
+SOCLabAuth_CL
+| where EventType == "SignIn"
+| summarize Total = count(), Failed = countif(Result == "Failure") by Country
+
+// D4. Incidents by severity and status
+SecurityIncident
+| summarize arg_max(TimeGenerated, *) by IncidentNumber
+| summarize count() by Severity, Status
+
+// D5. Mean time to close (MTTC) in minutes
+SecurityIncident
+| summarize arg_max(TimeGenerated, *) by IncidentNumber
+| where Status == "Closed"
+| extend MinutesToClose = datetime_diff('minute', ClosedTime, CreatedTime)
+| summarize AvgMinutesToClose = avg(MinutesToClose), Incidents = count() by Severity
