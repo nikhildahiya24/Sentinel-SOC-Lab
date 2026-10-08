@@ -37,6 +37,7 @@ sentinel-soc-lab/
 └── docs/
     ├── incident-response-runbook.md
     ├── incident-report-template.md
+    ├── reports/INC-SOCLAB-001.md  ← brute-force incident report
     └── scenarios.md               ← step-by-step exercises
 ```
 
@@ -116,6 +117,7 @@ az deployment group create \
 ### Step 6: Investigate & respond
 Open **Incidents**, then for each one follow `docs/incident-response-runbook.md` and write it up with
 `docs/incident-report-template.md`. That write-up is what you put in your portfolio.
+See [INC-SOCLAB-001](docs/reports/INC-SOCLAB-001.md) for the brute-force incident report.
 
 ### Step 7: Dashboard
 Sentinel → **Workbooks → Add workbook → Edit → Add query**. Paste the queries from the
